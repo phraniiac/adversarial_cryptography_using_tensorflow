@@ -47,6 +47,7 @@ class NNModel():
 		self.conf = config_object
 		
 		self.lw = layers_and_weights()
+		self.training_vars = None
 		
 		# add components to graphs.
 		self.add_placeholders()
@@ -280,7 +281,11 @@ class NNModel():
 
 	# optimizer	
 	def add_optimizer_op(self):
-		self.optimizer = tf.train.AdamOptimizer(self.conf.lr).minimize(self.loss_total)
+		self.training_vars = tf.trainable_variables()
+		alice_and_bob_trainers = [var for var in self.training_vars if 'alice' or 'bob' in var.name]
+		eve_trainers = [var for var in self.training_vars if 'eve' in var.name]
+		self.optimizer_1 = tf.train.AdamOptimizer(self.conf.lr).minimize(self.loss_total, var_list=alice_and_bob_trainers)
+		self.optimizer_2 = tf.train.AdamOptimizer(self.conf.lr).minimize(self.loss_eve, var_list=eve_trainers)
 
 	def run_batch(self, session, batch_input_message, batch_input_key, is_summary=False):
 		feed_dict = {
@@ -289,7 +294,7 @@ class NNModel():
 		}
 
 		if not is_summary:
-			loss, _ = session.run([self.loss_total, self.optimizer], feed_dict=feed_dict)
+			loss_total, _op1, _op2 = session.run([self.loss_total, self.optimizer_1, self.optimizer_2], feed_dict=feed_dict)
 		else:
 			merge = tf.summary.merge_all()
 			return session.run(merge, feed_dict=feed_dict)
