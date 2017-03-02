@@ -9,14 +9,14 @@ run is present in tf_summary, which can be used using the command -
 Some of the visualizations created are below.
 
 ![Bob Loss]
-(../images/loss_bob.png)
+(http://prsharma.me/assets/images/adversarial_crypto/loss_bob.png)
 
 
 ![Eve Loss]
-(https://ibb.co/hHCxva)
+(http://prsharma.me/assets/images/adversarial_crypto/eve_loss.png)
 
 
 ![Total Loss]
-(https://ibb.co/d4BPaa)
+(http://prsharma.me/assets/images/adversarial_crypto/loss_total.png)
 
 
