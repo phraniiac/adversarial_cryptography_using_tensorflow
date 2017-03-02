@@ -9,7 +9,7 @@ run is present in tf_summary, which can be used using the command -
 Some of the visualizations created are below.
 
 ![Bob Loss]
-(https://ibb.co/bWpXTv)
+(../images/loss_bob.png)
 
 
 ![Eve Loss]
